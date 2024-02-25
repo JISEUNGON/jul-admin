@@ -33,34 +33,9 @@ public class JwtCustomFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        final String memberIdString = request.getHeaders("Member-Id").hasMoreElements() ?
-                                        request.getHeader("Member-Id") : null;
-
-        if(memberIdString == null) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-001", "Member Id Header is null.");
-            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write(jsonResponse);
-
-            return;
-        }
-
-        if(!memberIdString.startsWith("DHI ")) {
-            log.info("memberId: {}", memberIdString);
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-002", "Member Id Header is not invalid.");
-            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write(jsonResponse);
-
-            return;
-        }
 
         if (authorizationHeader == null) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-003", "JWT Token is null.");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-001", "JWT Token is null.");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -72,7 +47,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
         // bearer이 아니면 오류
         if (!authorizationHeader.startsWith("Bearer ")) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-004", "JWT Token does not begin with Bearer String.");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-002", "JWT Token does not begin with Bearer String.");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -84,11 +59,10 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
         // Token 꺼내기
         String token = authorizationHeader.split(" ")[1];
-        Long id = Long.parseLong(memberIdString.split("DHI ")[1]);
 
         // Token 검증
         if (!JwtUtil.validateToken(token)) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-005", "JWT Token is not valid");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-003", "JWT Token is not valid");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -98,11 +72,11 @@ public class JwtCustomFilter extends OncePerRequestFilter {
             return;
         }
 
-        final Optional<Member> memberOptional = memberRepository.findByAccessTokenAndMemberId(token, id);
+        final Optional<Member> memberOptional = memberRepository.findByAccessTokenAndMemberId(token, JwtUtil.getMemberId());
 
         //멤버 검증
         if (memberOptional.isEmpty()) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-006", "Member is not exist.");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-004", "Member is not exist.");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -114,7 +88,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
         // Token 만료 체크
         if (JwtUtil.isExpired(token)) {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-007", "JWT Token is expired");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-005", "JWT Token is expired");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -134,7 +108,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
             role = "ROLE_USER";
         }
         else {
-            ApiErrorResponse errorResponse = new ApiErrorResponse("DEF-008", "Member do not have permission.");
+            ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-006", "Member do not have permission.");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);

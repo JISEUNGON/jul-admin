@@ -155,22 +155,6 @@ public class JwtUtil {
         return token;
     }
 
-    public static Long getMemberIdFromHeader() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String memberIdHeader = request.getHeader("Member-Id");
-        String memberIdString = null;
-
-        if (memberIdHeader != null && memberIdHeader.startsWith("DHI ")) {
-            memberIdString = memberIdHeader.substring(4);
-
-            return Long.parseLong(memberIdString);
-        }
-        else
-        {
-            throw new RuntimeException();
-        }
-    }
-
     public static String getRefreshToken() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String authorizationHeader = request.getHeader("RefreshToken");
