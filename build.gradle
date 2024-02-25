@@ -31,9 +31,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	//security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+
 	//dynamodb
 	implementation 'com.github.derjust:spring-data-dynamodb:5.1.0'
 	implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.11.805'
+
+	//jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation group: 'com.auth0', name: 'java-jwt', version: '3.1.0'
+
+	//model mapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
 
 	//swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'

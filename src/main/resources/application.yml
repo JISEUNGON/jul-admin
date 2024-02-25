@@ -54,7 +54,7 @@ jwt:
 
 amazon:
   dynamodb:
-    endpoint: http://localhost:8000
+    endpoint: ${DYNAMODB_ENDPOINT}
     region: ${DYNAMODB_REGION}
   aws:
     accessKey: ${DYNAMODB_ACCESS_KEY}
