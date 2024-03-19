@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.service;
+package com.POG.julindang.admin.cafe.service.topping;
 
 import com.POG.julindang.admin.cafe.domain.Topping;
 import com.POG.julindang.admin.cafe.dto.request.AdminToppingRequestDto;

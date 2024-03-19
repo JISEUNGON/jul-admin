@@ -4,7 +4,7 @@ import com.POG.julindang.admin.cafe.dto.request.AdminToppingRequestDto;
 import com.POG.julindang.admin.cafe.dto.response.AdminToppingResponseDto;
 
 import com.POG.julindang.admin.cafe.dto.request.ToppingSaveRequestDto;
-import com.POG.julindang.admin.cafe.service.AdminToppingService;
+import com.POG.julindang.admin.cafe.service.topping.AdminToppingService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
