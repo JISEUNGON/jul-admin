@@ -1,6 +1,6 @@
 package com.POG.julindang.admin.faq.dto;
 
-import com.POG.julindang.domain.FAQ;
+import com.POG.julindang.admin.cafe.domain.FAQ;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

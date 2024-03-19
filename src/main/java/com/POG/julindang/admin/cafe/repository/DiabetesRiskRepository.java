@@ -1,6 +1,6 @@
 package com.POG.julindang.admin.cafe.repository;
 
-import com.julindang.member.domain.DiabetesRisk;
+import com.POG.julindang.admin.cafe.domain.DiabetesRisk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
