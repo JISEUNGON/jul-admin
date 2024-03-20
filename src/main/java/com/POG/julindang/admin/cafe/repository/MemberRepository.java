@@ -1,6 +1,6 @@
 package com.POG.julindang.admin.cafe.repository;
 
-import com.POG.julindang.admin.cafe.domain.Member;
+import com.POG.julindang.admin.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.POG.julindang.common.util;
 
-import com.POG.julindang.admin.cafe.domain.Member;
+import com.POG.julindang.admin.member.domain.Member;
 import com.POG.julindang.admin.cafe.repository.MemberRepository;
 import com.POG.julindang.common.exception.ApiErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

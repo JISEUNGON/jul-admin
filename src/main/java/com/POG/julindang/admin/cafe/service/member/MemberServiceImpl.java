@@ -1,7 +1,7 @@
 package com.POG.julindang.admin.cafe.service.member;
 
-import com.POG.julindang.admin.cafe.domain.Authority;
-import com.POG.julindang.admin.cafe.domain.Member;
+import com.POG.julindang.admin.member.domain.Authority;
+import com.POG.julindang.admin.member.domain.Member;
 import com.POG.julindang.admin.cafe.repository.MemberRepository;
 import com.POG.julindang.common.exception.member.MemberIdNotFoundException;
 import com.POG.julindang.common.util.JwtUtil;

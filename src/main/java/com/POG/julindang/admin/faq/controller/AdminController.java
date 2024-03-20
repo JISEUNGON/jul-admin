@@ -1,9 +1,9 @@
 package com.POG.julindang.admin.faq.controller;
 
 
-import com.POG.julindang.admin.faq.dto.FAQDto;
-import com.POG.julindang.admin.faq.dto.FAQSaveDto;
-import com.POG.julindang.admin.faq.dto.FAQUpdateDto;
+import com.POG.julindang.admin.faq.dto.FaqDto;
+import com.POG.julindang.admin.faq.dto.FaqSaveDto;
+import com.POG.julindang.admin.faq.dto.FaqUpdateDto;
 import com.POG.julindang.admin.faq.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     private final AdminService adminService;
     @PostMapping("/faq/save")
-    public ResponseEntity<FAQDto> saveFAQ(@RequestBody FAQSaveDto faqSaveDto){
+    public ResponseEntity<FaqDto> saveFAQ(@RequestBody FaqSaveDto faqSaveDto){
         return new ResponseEntity<>(adminService.saveFAQ(faqSaveDto), HttpStatus.OK);
     }
     @PostMapping("/faq/update")
-    public ResponseEntity<FAQDto> updateFAQ(@RequestBody FAQUpdateDto faqUpdateDto){
+    public ResponseEntity<FaqDto> updateFAQ(@RequestBody FaqUpdateDto faqUpdateDto){
         return new ResponseEntity<>(adminService.updateFAQ(faqUpdateDto), HttpStatus.OK);
     }
     @DeleteMapping("/faq/delete/{id}")
-    public ResponseEntity<FAQDto> deleteFAQ(@PathVariable String id){
+    public ResponseEntity<FaqDto> deleteFAQ(@PathVariable String id){
         return new ResponseEntity<>(adminService.deleteFAQ(id), HttpStatus.OK);
     }
 }

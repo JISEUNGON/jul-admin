@@ -59,10 +59,10 @@ amazon:
   aws:
     accessKey: ${DYNAMODB_ACCESS_KEY}
     secretKey: ${DYNAMODB_SECRET_KEY}
-
-logging:
-  slack:
-    webhook-url: ${SLACK_WEBHOOK_URL}
-  config: classpath:logback.xml
+#
+#logging:
+#  slack:
+#    webhook-url: ${SLACK_WEBHOOK_URL}
+#  config: classpath:logback.xml
 
 
