@@ -4,7 +4,7 @@ package com.POG.julindang.admin.cafe.controller;
 import com.POG.julindang.admin.cafe.dto.request.AdminCafeRequestDto;
 import com.POG.julindang.admin.cafe.dto.response.AdminCafeResponseDto;
 import com.POG.julindang.admin.cafe.dto.request.CafeSaveRequestDto;
-import com.POG.julindang.admin.cafe.service.cafe.AdminCafeService;
+import com.POG.julindang.admin.cafe.service.AdminCafeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.service.cafe;
+package com.POG.julindang.admin.cafe.service;
 
 
 import com.POG.julindang.admin.cafe.domain.Cafe;

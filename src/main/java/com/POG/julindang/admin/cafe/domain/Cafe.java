@@ -23,12 +23,13 @@ public class Cafe {
     @Column(name = "CAFE_ID")
     private Long id;
     @NotNull
-    @Column(name = "CAFE_NAME")
+    @Column(name="CAFE_NAME", columnDefinition = "varchar", length = 30)
     private String cafeName;
     @NotNull
-    @Column(name = "BEVERAGE_NAME")
+    @Column(name = "BEVERAGE_NAME", columnDefinition = "varchar", length = 50)
     private String beverageName;
     @NotNull
+    @Column(name="SIZE", columnDefinition = "varchar", length = 10)
     private String size;
     @NotNull
     private Double serve;
@@ -38,13 +39,12 @@ public class Cafe {
     private Double calorie;
     @NotNull
     private Boolean temperature;
-
     @NotNull
+    @Column(name="MANAGER", columnDefinition = "varchar", length = 10)
     private String manager;
     @NotNull
     @ColumnDefault("false")
     private Boolean deleted;
-
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }

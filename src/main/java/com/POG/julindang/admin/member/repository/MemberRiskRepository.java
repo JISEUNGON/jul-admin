@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.repository;
+package com.POG.julindang.admin.member.repository;
 
 import com.POG.julindang.admin.member.domain.MemberRisk;
 import com.POG.julindang.admin.member.domain.RiskItem;

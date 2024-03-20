@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.service.member;
+package com.POG.julindang.admin.member.service;
 
 import com.POG.julindang.admin.member.domain.Authority;
 

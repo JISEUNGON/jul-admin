@@ -20,7 +20,7 @@ public class Topping {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TOPPING_ID")
     private Long id;
-    
+
     @NotNull
     private String toppingName;
 
@@ -31,6 +31,7 @@ public class Topping {
     private Double calorie;
 
     @NotNull
+
     private String cafeName;
 
     @NotNull

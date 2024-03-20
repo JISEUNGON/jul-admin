@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.service.diabets;
+package com.POG.julindang.admin.diabetes.service;
 
 import java.util.List;
 
