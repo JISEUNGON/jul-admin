@@ -1,4 +1,4 @@
-package com.POG.julindang.domain;
+package com.POG.julindang.admin.cafe.domain;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import jakarta.persistence.*;

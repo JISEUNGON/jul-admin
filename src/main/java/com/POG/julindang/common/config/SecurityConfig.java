@@ -1,7 +1,7 @@
 package com.POG.julindang.common.config;
 
+import com.POG.julindang.admin.cafe.repository.MemberRepository;
 import com.POG.julindang.common.util.JwtCustomFilter;
-import com.POG.julindang.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +26,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
                 .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**"))
                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
-                .requestMatchers(new AntPathRequestMatcher("/no-auth/**"))
-                .requestMatchers(new AntPathRequestMatcher("/login/**"));
+                .requestMatchers(new AntPathRequestMatcher("/no-auth/**"));
     }
 
     @Bean
@@ -35,11 +34,6 @@ public class SecurityConfig {
         http.csrf(c -> c.disable())
                 .cors(c -> c.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/member").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        .requestMatchers("/party").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        .requestMatchers("/feed").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        .requestMatchers("/comment").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        .requestMatchers("/alarm").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()    // 어떠한 요청이라도 인증필요
                 )

@@ -1,8 +1,8 @@
 package com.POG.julindang.admin.faq.service;
 
 
-import com.POG.julindang.domain.FAQ;
-import com.POG.julindang.domain.Inquiry;
+import com.POG.julindang.admin.cafe.domain.FAQ;
+import com.POG.julindang.admin.cafe.domain.Inquiry;
 import com.POG.julindang.admin.faq.dto.FAQDto;
 import com.POG.julindang.admin.faq.dto.FAQSaveDto;
 import com.POG.julindang.admin.faq.dto.FAQUpdateDto;
