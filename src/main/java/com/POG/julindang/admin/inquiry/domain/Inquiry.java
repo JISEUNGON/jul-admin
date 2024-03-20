@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.domain;
+package com.POG.julindang.admin.inquiry.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -1,5 +1,6 @@
-package com.POG.julindang.admin.cafe.domain;
+package com.POG.julindang.admin.diabetes.domain;
 
+import com.POG.julindang.admin.member.domain.RiskItem;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;

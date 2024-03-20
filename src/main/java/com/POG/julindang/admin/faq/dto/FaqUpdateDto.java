@@ -1,6 +1,6 @@
 package com.POG.julindang.admin.faq.dto;
 
-import com.POG.julindang.admin.cafe.domain.FAQ;
+import com.POG.julindang.admin.faq.domain.Faq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,20 +11,20 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FAQUpdateDto {
+public class FaqUpdateDto {
     private String id;
     private String title;
     private String context;
 
     @Builder
-    public FAQUpdateDto(String id, String title, String context) {
+    public FaqUpdateDto(String id, String title, String context) {
         this.id= id;
         this.title = title;
         this.context = context;
     }
 
-    public FAQ toEntity(Date createdAt){
-        return FAQ.builder()
+    public Faq toEntity(Date createdAt){
+        return Faq.builder()
                 .id(id)
                 .title(title)
                 .context(context)

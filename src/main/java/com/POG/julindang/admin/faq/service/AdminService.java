@@ -1,11 +1,11 @@
 package com.POG.julindang.admin.faq.service;
 
 
-import com.POG.julindang.admin.cafe.domain.FAQ;
-import com.POG.julindang.admin.cafe.domain.Inquiry;
-import com.POG.julindang.admin.faq.dto.FAQDto;
-import com.POG.julindang.admin.faq.dto.FAQSaveDto;
-import com.POG.julindang.admin.faq.dto.FAQUpdateDto;
+import com.POG.julindang.admin.faq.domain.Faq;
+import com.POG.julindang.admin.inquiry.domain.Inquiry;
+import com.POG.julindang.admin.faq.dto.FaqDto;
+import com.POG.julindang.admin.faq.dto.FaqSaveDto;
+import com.POG.julindang.admin.faq.dto.FaqUpdateDto;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
@@ -30,7 +30,7 @@ public class AdminService {
     private final AmazonDynamoDB amazonDynamoDB;
 
     private void createFAQTableIfNotExists() {
-        CreateTableRequest createTableRequest = dynamoDBMapper.generateCreateTableRequest(FAQ.class)
+        CreateTableRequest createTableRequest = dynamoDBMapper.generateCreateTableRequest(Faq.class)
                 .withProvisionedThroughput(new ProvisionedThroughput(1L, 1L));
         TableUtils.createTableIfNotExists(amazonDynamoDB, createTableRequest);
     }
@@ -40,39 +40,39 @@ public class AdminService {
                 .withProvisionedThroughput(new ProvisionedThroughput(1L, 1L));
         TableUtils.createTableIfNotExists(amazonDynamoDB, createTableRequest);
     }
-    public FAQDto saveFAQ(FAQSaveDto faqSaveDto) {
+    public FaqDto saveFAQ(FaqSaveDto faqSaveDto) {
         Date createdAt = new Date();
         dynamoDBMapper.save(faqSaveDto.toEntity(createdAt));
-        return FAQDto.builder()
+        return FaqDto.builder()
                 .title(faqSaveDto.getTitle())
                 .context(faqSaveDto.getContext())
                 .createdAt(createdAt)
                 .build();
     }
 
-    public FAQDto updateFAQ(FAQUpdateDto faqUpdateDto){
+    public FaqDto updateFAQ(FaqUpdateDto faqUpdateDto){
         Date createdAt = new Date();
         dynamoDBMapper.save(faqUpdateDto.toEntity(createdAt), new DynamoDBSaveExpression()
                 .withExpectedEntry("faq_id",
                         new ExpectedAttributeValue(
                                 new AttributeValue().withS(faqUpdateDto.getId())
                         )));
-        return FAQDto.builder()
+        return FaqDto.builder()
                 .title(faqUpdateDto.getTitle())
                 .context(faqUpdateDto.getContext())
                 .createdAt(createdAt)
                 .build();
     }
 
-    public FAQDto deleteFAQ(String id){
-        FAQ load = dynamoDBMapper.load(FAQ.class, id);
+    public FaqDto deleteFAQ(String id){
+        Faq load = dynamoDBMapper.load(Faq.class, id);
         dynamoDBMapper.save(load, new DynamoDBSaveExpression()
                 .withExpectedEntry("faq_id",
                         new ExpectedAttributeValue(
                                 new AttributeValue().withS(load.getId())
                         )));
 
-        return FAQDto.builder()
+        return FaqDto.builder()
                 .id(id)
                 .createdAt(load.getCreatedAt())
                 .context(load.getContext())

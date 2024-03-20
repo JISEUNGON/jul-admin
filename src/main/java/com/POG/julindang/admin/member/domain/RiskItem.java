@@ -1,4 +1,4 @@
-package com.POG.julindang.admin.cafe.domain;
+package com.POG.julindang.admin.member.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,6 +1,6 @@
 package com.POG.julindang.common.config;
 
-import com.POG.julindang.admin.cafe.repository.MemberRepository;
+import com.POG.julindang.admin.member.repository.MemberRepository;
 import com.POG.julindang.common.util.JwtCustomFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
