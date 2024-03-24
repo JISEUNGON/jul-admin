@@ -34,6 +34,8 @@ public class JwtCustomFilter extends OncePerRequestFilter {
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+        log.info("authorization header: {}", authorizationHeader);
+
         if (authorizationHeader == null) {
             ApiErrorResponse errorResponse = new ApiErrorResponse("JEF-001", "JWT Token is null.");
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
