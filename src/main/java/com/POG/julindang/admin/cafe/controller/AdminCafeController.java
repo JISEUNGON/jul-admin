@@ -18,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminCafeController {
     private final AdminCafeService adminService;
     @GetMapping("/cafe")
