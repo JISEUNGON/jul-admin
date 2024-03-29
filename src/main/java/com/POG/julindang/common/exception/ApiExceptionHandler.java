@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApiExceptionHandler {
 
     /**
-     * DEM
+     * JEM
      * */
     @ExceptionHandler(MemberIdNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleException(MemberIdNotFoundException ex) {
@@ -49,7 +49,7 @@ public class ApiExceptionHandler {
     }
 
     /**
-     * Cafe
+     * JEC
      */
 
     @ExceptionHandler(CafeNameDoesNotExist.class)
@@ -84,32 +84,32 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler(CalorieDoesNotExist.class)
     public ResponseEntity<ApiErrorResponse> handleException(CalorieDoesNotExist ex){
-        ApiErrorResponse response = new ApiErrorResponse("JEC-004", "Calorie Doesn't Exist : " + ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("JEC-005", "Calorie Doesn't Exist : " + ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ManagerDoesNotExist.class)
     public ResponseEntity<ApiErrorResponse> handleException(ManagerDoesNotExist ex){
-        ApiErrorResponse response = new ApiErrorResponse("JEC-005", "Manager Name Doesn't Exist : " + ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("JEC-006", "Manager Name Doesn't Exist : " + ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(ServeDoesNotExist.class)
     public ResponseEntity<ApiErrorResponse> handleException(ServeDoesNotExist ex){
-        ApiErrorResponse response = new ApiErrorResponse("JEC-006", "Serve Doesn't Exist : " + ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("JEC-007", "Serve Doesn't Exist : " + ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(SizeDoesNotExist.class)
     public ResponseEntity<ApiErrorResponse> handleException(SizeDoesNotExist ex){
-        ApiErrorResponse response = new ApiErrorResponse("JEC-007", "Size Doesn't Exist : " + ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("JEC-008", "Size Doesn't Exist : " + ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(SugarDoesNotExist.class)
     public ResponseEntity<ApiErrorResponse> handleException(SugarDoesNotExist ex){
-        ApiErrorResponse response = new ApiErrorResponse("JEC-008", "Sugar Doesn't Exist : " + ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("JEC-009", "Sugar Doesn't Exist : " + ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
