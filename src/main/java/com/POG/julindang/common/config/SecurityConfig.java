@@ -35,9 +35,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html/**"))
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
                 .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**"))
-                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
-                .requestMatchers(new AntPathRequestMatcher("/admin/**"))
-                .requestMatchers(new AntPathRequestMatcher("/no-auth/**"));
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"));
     }
 
     @Bean

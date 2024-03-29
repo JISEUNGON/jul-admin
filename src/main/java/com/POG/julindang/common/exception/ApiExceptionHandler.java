@@ -1,6 +1,7 @@
 package com.POG.julindang.common.exception;
 
 import com.POG.julindang.common.exception.cafe.*;
+import com.POG.julindang.common.exception.common.InvalidArgsException;
 import com.POG.julindang.common.exception.information.*;
 import com.POG.julindang.common.exception.member.MemberEmailNotFoundException;
 import com.POG.julindang.common.exception.member.MemberIdNotFoundException;
@@ -44,6 +45,13 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MemberLoginTypeNotExistException.class)
     public ResponseEntity<ApiErrorResponse> handleException(MemberLoginTypeNotExistException ex) {
         ApiErrorResponse response = new ApiErrorResponse("JEM-004", "This login type is not exist: " + ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidArgsException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(InvalidArgsException ex) {
+        ApiErrorResponse response = new ApiErrorResponse("JEM-005", ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
