@@ -91,12 +91,13 @@ public class MemberServiceImpl implements MemberService {
         List<MemberInfoVo> memberInfoVoList = new ArrayList<>();
         Long totalPage = 0L;
 
-        if (searchType == 0) { // 검색어 없을 떄
-            Page<Member> members = memberRepository.findAll(
+        if (searchType == 0) { // 이름 + 이메일
+            Page<Member> members = memberRepository.findByEmailContainsOrNicknameContains(
+                    query,
+                    query,
                     PageRequest.of(
                             pageNum.intValue(),
-                            6,
-                            Sort.by(Sort.Direction.ASC, "nickname")
+                            6
                     )
             );
 
@@ -137,29 +138,6 @@ public class MemberServiceImpl implements MemberService {
         }
         else if (searchType == 2) { // 이메일로 검색
             Page<Member> members = memberRepository.findByEmailContains(
-                    query,
-                    PageRequest.of(
-                            pageNum.intValue(),
-                            6
-                    )
-            );
-
-            for (Member member: members) {
-                memberInfoVoList.add(
-                        MemberInfoVo.builder()
-                                .memberId(member.getMemberId())
-                                .email(member.getEmail())
-                                .nickname(member.getNickname())
-                                .role(member.getRole())
-                                .build()
-                );
-            }
-
-            totalPage = Long.valueOf(members.getTotalPages());
-        }
-        else if (searchType == 3) { // 이름 + 이메일로 검색
-            Page<Member> members = memberRepository.findByEmailContainsOrNicknameContains(
-                    query,
                     query,
                     PageRequest.of(
                             pageNum.intValue(),

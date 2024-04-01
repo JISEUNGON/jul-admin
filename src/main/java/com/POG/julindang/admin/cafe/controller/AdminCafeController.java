@@ -6,6 +6,7 @@ import com.POG.julindang.admin.cafe.dto.response.AdminCafeResponseDto;
 import com.POG.julindang.admin.cafe.dto.request.CafeSaveRequestDto;
 import com.POG.julindang.admin.cafe.service.AdminCafeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/admin")
+@Tag(name = "카페 관련 API")
 @CrossOrigin(originPatterns = {"*"})
 public class AdminCafeController {
     private final AdminCafeService adminService;

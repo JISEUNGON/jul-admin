@@ -5,6 +5,7 @@ import com.POG.julindang.admin.faq.dto.FaqDto;
 import com.POG.julindang.admin.faq.dto.FaqSaveDto;
 import com.POG.julindang.admin.faq.dto.FaqUpdateDto;
 import com.POG.julindang.admin.faq.service.AdminService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@Tag(name = "FAQ 관련 API")
 public class AdminController {
     private final AdminService adminService;
     @PostMapping("/faq/save")
