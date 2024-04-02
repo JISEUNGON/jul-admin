@@ -17,4 +17,11 @@ public class Authority {
     @Id
     @Column(name = "authority_name", length = 12, columnDefinition = "varchar")
     private String authorityName;
+
+    @Override
+    public boolean equals(Object object) {
+        Authority authority = (Authority)object;
+
+        return this.authorityName.equals(authority.getAuthorityName());
+    }
 }

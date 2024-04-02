@@ -97,7 +97,8 @@ public class MemberServiceImpl implements MemberService {
                     query,
                     PageRequest.of(
                             pageNum.intValue(),
-                            6
+                            6,
+                            Sort.by(Sort.Direction.ASC, "nickname")
                     )
             );
 
@@ -119,7 +120,8 @@ public class MemberServiceImpl implements MemberService {
                     query,
                     PageRequest.of(
                             pageNum.intValue(),
-                            6
+                            6,
+                            Sort.by(Sort.Direction.ASC, "nickname")
                     )
             );
 
@@ -141,7 +143,8 @@ public class MemberServiceImpl implements MemberService {
                     query,
                     PageRequest.of(
                             pageNum.intValue(),
-                            6
+                            6,
+                            Sort.by(Sort.Direction.ASC, "nickname")
                     )
             );
 
