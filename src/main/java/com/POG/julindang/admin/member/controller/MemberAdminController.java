@@ -26,7 +26,7 @@ public class MemberAdminController {
     @Operation(summary = "멤버 조회 + 검색 API")
     @Parameters(value = {
             @Parameter(name = "searchType", description = "0: 이름 + 이메일로 검색, 1: 이름으로 검색, 2: 이메일로 검색", required = true),
-            @Parameter(name = "query", description = "검색어", required = false, allowEmptyValue = true),
+            @Parameter(name = "query", description = "검색어(안적어도 됨)", required = false, allowEmptyValue = true),
             @Parameter(name = "pageNum", description = "페이지 번호, 0번 부터 시작", required = true)
     })
     public ResponseEntity<MemberAllResponseDto> findMembers(@RequestParam Long searchType,
@@ -39,7 +39,7 @@ public class MemberAdminController {
     @Operation(summary = "관리자 조회 + 검색 API")
     @Parameters(value = {
             @Parameter(name = "searchType", description = "0: 이름 + 이메일로 검색, 1: 이름으로 검색, 2: 이메일로 검색", required = true),
-            @Parameter(name = "query", description = "검색어", required = false, allowEmptyValue = true),
+            @Parameter(name = "query", description = "검색어(안적어도 됨", required = false, allowEmptyValue = true),
             @Parameter(name = "pageNum", description = "페이지 번호, 0번 부터 시작", required = true)
     })
     public ResponseEntity<MemberAllResponseDto> findAdmins(@RequestParam Long searchType,
