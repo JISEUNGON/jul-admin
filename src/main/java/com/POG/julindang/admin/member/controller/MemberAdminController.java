@@ -22,16 +22,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberAdminController {
     private final MemberService memberService;
 
-    @GetMapping("/search")
-    @Operation(summary = "멤버 검색 API")
+    @GetMapping("/search/member")
+    @Operation(summary = "멤버 조회 + 검색 API")
     @Parameters(value = {
             @Parameter(name = "searchType", description = "0: 이름 + 이메일로 검색, 1: 이름으로 검색, 2: 이메일로 검색", required = true),
-            @Parameter(name = "query", description = "검색어", required = true),
+            @Parameter(name = "query", description = "검색어", required = false, allowEmptyValue = true),
             @Parameter(name = "pageNum", description = "페이지 번호, 0번 부터 시작", required = true)
     })
     public ResponseEntity<MemberAllResponseDto> findMembers(@RequestParam Long searchType,
                                                             @RequestParam String query,
                                                             @RequestParam Long pageNum) {
-        return ResponseEntity.ok(memberService.findALl(searchType, query, pageNum));
+        return ResponseEntity.ok(memberService.findMembers(searchType, query, pageNum));
+    }
+
+    @GetMapping("/search/admin")
+    @Operation(summary = "관리자 조회 + 검색 API")
+    @Parameters(value = {
+            @Parameter(name = "searchType", description = "0: 이름 + 이메일로 검색, 1: 이름으로 검색, 2: 이메일로 검색", required = true),
+            @Parameter(name = "query", description = "검색어", required = false, allowEmptyValue = true),
+            @Parameter(name = "pageNum", description = "페이지 번호, 0번 부터 시작", required = true)
+    })
+    public ResponseEntity<MemberAllResponseDto> findAdmins(@RequestParam Long searchType,
+                                                            @RequestParam String query,
+                                                            @RequestParam Long pageNum) {
+        return ResponseEntity.ok(memberService.findAdmins(searchType, query, pageNum));
     }
 }

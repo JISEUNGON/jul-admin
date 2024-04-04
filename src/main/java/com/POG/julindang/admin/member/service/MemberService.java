@@ -10,5 +10,6 @@ public interface MemberService {
     public Set<Authority> upgrade(String email);
     public Set<Authority> downgrade(String email);
     public void delete();
-    public MemberAllResponseDto findALl(Long sortType, String query, Long pageNum);
+    public MemberAllResponseDto findMembers(Long sortType, String query, Long pageNum);
+    public MemberAllResponseDto findAdmins(Long searchType, String query, Long pageNum);
 }

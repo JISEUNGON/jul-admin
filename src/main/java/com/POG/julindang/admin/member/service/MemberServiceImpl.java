@@ -5,6 +5,7 @@ import com.POG.julindang.admin.member.domain.Member;
 import com.POG.julindang.admin.member.dto.response.MemberAllResponseDto;
 import com.POG.julindang.admin.member.vo.MemberInfoVo;
 import com.POG.julindang.admin.member.repository.MemberRepository;
+import com.POG.julindang.admin.member.vo.UserInfoVo;
 import com.POG.julindang.common.exception.common.InvalidArgsException;
 import com.POG.julindang.common.exception.member.MemberIdNotFoundException;
 import com.POG.julindang.common.util.JwtUtil;
@@ -86,88 +87,222 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public MemberAllResponseDto findALl(final Long searchType, final String query, final Long pageNum) {
+    public MemberAllResponseDto findMembers(final Long searchType, final String query, final Long pageNum) {
         //member info list
         List<MemberInfoVo> memberInfoVoList = new ArrayList<>();
         Long totalPage = 0L;
 
-        if (searchType == 0) { // 이름 + 이메일
-            Page<Member> members = memberRepository.findByEmailContainsOrNicknameContains(
-                    query,
-                    query,
-                    PageRequest.of(
-                            pageNum.intValue(),
-                            6,
-                            Sort.by(Sort.Direction.ASC, "nickname")
-                    )
-            );
+        if(query.isBlank() || query.isEmpty()) { //검색어 없을 때
+            Page<UserInfoVo> members = memberRepository.findMembersWithUserRole(PageRequest.of(
+                    pageNum.intValue(),
+                    6,
+                    Sort.by(Sort.Direction.ASC, "nickname")
+            ));
 
-            for (Member member: members) {
+            for (UserInfoVo member: members) {
+                log.info("member id: {}", member.getMemberId());
                 memberInfoVoList.add(
                         MemberInfoVo.builder()
                                 .memberId(member.getMemberId())
                                 .email(member.getEmail())
                                 .nickname(member.getNickname())
-                                .role(member.getRole())
+                                .role("관리자")
                                 .build()
                 );
             }
 
             totalPage = Long.valueOf(members.getTotalPages());
         }
-        else if(searchType == 1) { //이름으로 검색
-            Page<Member> members = memberRepository.findByNicknameContains(
-                    query,
-                    PageRequest.of(
-                            pageNum.intValue(),
-                            6,
-                            Sort.by(Sort.Direction.ASC, "nickname")
-                    )
-            );
-
-            for (Member member: members) {
-                memberInfoVoList.add(
-                        MemberInfoVo.builder()
-                                .memberId(member.getMemberId())
-                                .email(member.getEmail())
-                                .nickname(member.getNickname())
-                                .role(member.getRole())
-                                .build()
-                );
-            }
-
-            totalPage = Long.valueOf(members.getTotalPages());
-        }
-        else if (searchType == 2) { // 이메일로 검색
-            Page<Member> members = memberRepository.findByEmailContains(
-                    query,
-                    PageRequest.of(
-                            pageNum.intValue(),
-                            6,
-                            Sort.by(Sort.Direction.ASC, "nickname")
-                    )
-            );
-
-            for (Member member: members) {
-                memberInfoVoList.add(
-                        MemberInfoVo.builder()
-                                .memberId(member.getMemberId())
-                                .email(member.getEmail())
-                                .nickname(member.getNickname())
-                                .role(member.getRole())
-                                .build()
-                );
-            }
-
-            totalPage = Long.valueOf(members.getTotalPages());
-        }
-        else
+        else //검색어 있을 떄
         {
-            throw new InvalidArgsException("sortType can not be " + searchType);
+            if (searchType == 0) { // 이름 + 이메일
+                Page<UserInfoVo> members = memberRepository.findMembersWithUserRoleAndEmailOrNickname(
+                        query,
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    memberInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("일반 회원")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else if(searchType == 1) { //이름으로 검색
+                Page<UserInfoVo> members = memberRepository.findMembersWithUserRoleAndNickname(
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    memberInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("일반 회원")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else if (searchType == 2) { // 이메일로 검색
+                Page<UserInfoVo> members = memberRepository.findMembersWithUserRoleAndEmail(
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    memberInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("일반 회원")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else
+            {
+                throw new InvalidArgsException("sortType can not be " + searchType);
+            }
         }
 
         return MemberAllResponseDto.builder()
                 .memberInfoVoList(memberInfoVoList)
+                .totalPageNumber(totalPage)
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public MemberAllResponseDto findAdmins(final Long searchType, final String query, final Long pageNum) {
+        //admin info list
+        List<MemberInfoVo> adminInfoVoList = new ArrayList<>();
+        Long totalPage = 0L;
+
+        if(query.isEmpty() || query.isBlank()){ //검색어 없을 때
+            Page<UserInfoVo> members = memberRepository.findMembersWithAdminRole(PageRequest.of(
+                    pageNum.intValue(),
+                    6,
+                    Sort.by(Sort.Direction.ASC, "nickname")
+            ));
+
+            for (UserInfoVo member: members) {
+                adminInfoVoList.add(
+                        MemberInfoVo.builder()
+                                .memberId(member.getMemberId())
+                                .email(member.getEmail())
+                                .nickname(member.getNickname())
+                                .role("관리자")
+                                .build()
+                );
+            }
+
+            totalPage = Long.valueOf(members.getTotalPages());
+        }
+        else { //검색어 있을 때
+            if (searchType == 0) { // 이름 + 이메일
+                Page<UserInfoVo> members = memberRepository.findMembersWithAdminRoleAndEmailOrNickname(
+                        query,
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    adminInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("관리자")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else if(searchType == 1) { //이름으로 검색
+                Page<UserInfoVo> members = memberRepository.findMembersWithAdminRoleAndNickname(
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    adminInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("관리자")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else if (searchType == 2) { // 이메일로 검색
+                Page<UserInfoVo> members = memberRepository.findMembersWithAdminRoleAndEmail(
+                        query,
+                        PageRequest.of(
+                                pageNum.intValue(),
+                                6,
+                                Sort.by(Sort.Direction.ASC, "nickname")
+                        )
+                );
+
+                for (UserInfoVo member: members) {
+                    adminInfoVoList.add(
+                            MemberInfoVo.builder()
+                                    .memberId(member.getMemberId())
+                                    .email(member.getEmail())
+                                    .nickname(member.getNickname())
+                                    .role("관리자")
+                                    .build()
+                    );
+                }
+
+                totalPage = Long.valueOf(members.getTotalPages());
+            }
+            else
+            {
+                throw new InvalidArgsException("sortType can not be " + searchType);
+            }
+        }
+
+        return MemberAllResponseDto.builder()
+                .memberInfoVoList(adminInfoVoList)
                 .totalPageNumber(totalPage)
                 .build();
     }
